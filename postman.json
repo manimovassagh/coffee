@@ -38,12 +38,21 @@
 					}
 				},
 				{
-					"name": "Get User Details",
+					"name": "Login",
 					"request": {
-						"method": "GET",
-						"header": [],
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"string\",\n  \"password\": \"string\"\n}"
+						},
 						"url": {
-							"raw": "http://localhost:8080/users/:id",
+							"raw": "http://localhost:8080/users/login",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -51,13 +60,30 @@
 							"port": "8080",
 							"path": [
 								"users",
-								":id"
+								"login"
+							]
+						}
+					}
+				},
+				{
+					"name": "Get User Info",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/userinfo",
+							"protocol": "http",
+							"host": [
+								"localhost"
 							],
-							"variable": [
-								{
-									"key": "id",
-									"value": "1"
-								}
+							"port": "8080",
+							"path": [
+								"userinfo"
 							]
 						}
 					}
@@ -75,6 +101,10 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
 							}
 						],
 						"body": {
@@ -150,6 +180,10 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
 							}
 						],
 						"body": {
@@ -173,7 +207,12 @@
 					"name": "Get All Orders",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
 						"url": {
 							"raw": "http://localhost:8080/orders",
 							"protocol": "http",
@@ -191,7 +230,12 @@
 					"name": "Get Order Details",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
 						"url": {
 							"raw": "http://localhost:8080/orders/:id",
 							"protocol": "http",

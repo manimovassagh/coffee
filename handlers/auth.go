@@ -2,11 +2,11 @@ package handlers
 
 import (
 	"net/http"
+	"strings"
 	"time"
 
 	"github.com/dgrijalva/jwt-go"
 	"github.com/labstack/echo/v4"
-	"github.com/labstack/echo/v4/middleware"
 	"github.com/manimovassagh/coffee/database"
 	"github.com/manimovassagh/coffee/types"
 	"golang.org/x/crypto/bcrypt"
@@ -14,11 +14,32 @@ import (
 
 var jwtSecret = []byte("your_secret_key") // Replace with your secret key
 
-// JWT middleware
-func JWTMiddleware() echo.MiddlewareFunc {
-	return middleware.JWTWithConfig(middleware.JWTConfig{
-		SigningKey: jwtSecret,
-	})
+func JWTMiddleware(next echo.HandlerFunc) echo.HandlerFunc {
+	return func(c echo.Context) error {
+		authHeader := c.Request().Header.Get("Authorization")
+		if authHeader == "" {
+			return c.JSON(http.StatusUnauthorized, map[string]string{"error": "Missing or malformed JWT"})
+		}
+
+		tokenStr := strings.Split(authHeader, "Bearer ")[1]
+		token, err := jwt.Parse(tokenStr, func(token *jwt.Token) (interface{}, error) {
+			if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
+				return nil, echo.ErrUnauthorized
+			}
+			return jwtSecret, nil
+		})
+		if err != nil {
+			return c.JSON(http.StatusUnauthorized, map[string]string{"error": "Invalid JWT"})
+		}
+
+		if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
+			c.Set("user_id", claims["user_id"])
+		} else {
+			return c.JSON(http.StatusUnauthorized, map[string]string{"error": "Invalid JWT"})
+		}
+
+		return next(c)
+	}
 }
 
 // Login handler
@@ -52,13 +73,5 @@ func LoginHandler(c echo.Context) error {
 		return c.JSON(http.StatusInternalServerError, map[string]string{"error": "Could not create token"})
 	}
 
-	// Set token in cookie
-	cookie := new(http.Cookie)
-	cookie.Name = "token"
-	cookie.Value = tokenString
-	cookie.Expires = time.Now().Add(time.Hour * 72)
-	cookie.HttpOnly = true
-	c.SetCookie(cookie)
-
-	return c.JSON(http.StatusOK, map[string]string{"message": "Logged in successfully"})
+	return c.JSON(http.StatusOK, map[string]string{"token": tokenString})
 }

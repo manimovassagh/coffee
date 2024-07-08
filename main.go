@@ -21,7 +21,7 @@ func main() {
 	// Routes
 	e.POST("/users/register", handlers.SignupHandler)
 	e.POST("/users/login", handlers.LoginHandler)
-	e.GET("/users/:id", handlers.GetUserHandler, handlers.JWTMiddleware())
+	e.GET("/userinfo", handlers.UserInfoHandler, handlers.JWTMiddleware)
 
 	// Start server
 	e.Logger.Fatal(e.Start(":8080"))
