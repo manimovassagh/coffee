@@ -1,11 +1,7 @@
 package main
 
-import (
-	"github.com/manimovassagh/coffee/handler"
-)
+import "fmt"
 
 func main() {
-	handler.Handler()
-	handler.Printer()
-	handler.PrinterNew()
+	fmt.Println("This is working")
 }
