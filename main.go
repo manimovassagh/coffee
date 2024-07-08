@@ -21,6 +21,7 @@ func main() {
 	// Routes
 	e.POST("/users/register", handlers.SignupHandler)
 	e.POST("/users/login", handlers.LoginHandler)
+	e.POST("/users/refresh", handlers.RefreshTokenHandler)
 	e.GET("/userinfo", handlers.UserInfoHandler, handlers.JWTMiddleware)
 
 	// Start server

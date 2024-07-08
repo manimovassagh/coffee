@@ -6,12 +6,13 @@ type Role struct {
 }
 
 type User struct {
-	ID       uint   `gorm:"primaryKey"`
-	Username string `gorm:"unique;not null"`
-	Email    string `gorm:"unique;not null"`
-	Password string `gorm:"not null" json:"-"` // Exclude from JSON responses
-	RoleID   uint
-	Role     Role `gorm:"foreignKey:RoleID"`
+	ID           uint   `gorm:"primaryKey"`
+	Username     string `gorm:"unique;not null"`
+	Email        string `gorm:"unique;not null"`
+	Password     string `gorm:"not null" json:"-"`
+	RefreshToken string `json:"-"` // Exclude from JSON responses
+	RoleID       uint
+	Role         Role `gorm:"foreignKey:RoleID"`
 }
 
 type Category struct {
