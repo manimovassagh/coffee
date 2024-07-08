@@ -25,7 +25,7 @@ func main() {
 	e.GET("/userinfo", handlers.UserInfoHandler, handlers.JWTMiddleware)
 
 	e.POST("/products", handlers.CreateProductHandler, handlers.JWTMiddleware)
-	e.GET("/products", handlers.GetProductsBySellerHandler, handlers.JWTMiddleware) // Add this line for fetching products by seller
+	e.GET("/products", handlers.GetProductsBySellerHandler, handlers.JWTMiddleware)
 
 	// Start server
 	e.Logger.Fatal(e.Start(":8080"))
