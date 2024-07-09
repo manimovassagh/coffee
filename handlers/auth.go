@@ -44,7 +44,7 @@ func JWTMiddleware(next echo.HandlerFunc) echo.HandlerFunc {
 }
 
 
-// Login handler
+// Login handler 
 func LoginHandler(c echo.Context) error {
 	var req struct {
 		Email    string `json:"email"`
