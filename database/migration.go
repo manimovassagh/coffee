@@ -25,7 +25,7 @@ func Connect() {
 		log.Fatal("Failed to drop tables:", err)
 	}
 
-	// Automatically migrate the schema 
+	// Automatically migrate the schema
 	err = DB.AutoMigrate(&types.User{}, &types.Product{}, &types.Role{}, &types.Order{}, &types.OrderItem{})
 	if err != nil {
 		log.Fatal("Failed to migrate database schema:", err)
