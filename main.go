@@ -8,7 +8,7 @@ import (
 )
 
 func main() {
-	// Connect to the database just to change
+	// Connect to the database just to chan
 	database.Connect()
 
 	// Echo instance
