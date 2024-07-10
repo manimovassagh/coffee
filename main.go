@@ -8,7 +8,7 @@ import (
 )
 
 func main() {
-	// Connect to the database jus
+	// Connect to the database ju
 	database.Connect()
 
 	// Echo instance
