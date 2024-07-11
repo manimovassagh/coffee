@@ -11,7 +11,7 @@ func main() {
 	// Connect to the database
 	database.Connect()
 
-	// Echo instance
+	// Echo instance init
 	e := echo.New()
 
 	// Middleware
