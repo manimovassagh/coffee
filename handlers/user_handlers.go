@@ -49,7 +49,7 @@ func GetUserHandler(c echo.Context) error {
 	return c.JSON(http.StatusOK, user)
 }
 
-// test check it
+// test check
 func UserInfoHandler(c echo.Context) error {
 	userID := c.Get("user_id").(float64) // JWT token's `user_id` is a float64
 	var user types.User
