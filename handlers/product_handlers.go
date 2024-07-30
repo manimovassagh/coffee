@@ -32,6 +32,7 @@ func CreateProductHandler(c echo.Context) error {
 		return c.JSON(http.StatusBadRequest, map[string]string{"error": "Invalid request"})
 	}
 
+	// type for products
 	product := types.Product{
 		Name:        req.Name,
 		Description: req.Description,
