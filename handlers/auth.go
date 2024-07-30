@@ -43,8 +43,7 @@ func JWTMiddleware(next echo.HandlerFunc) echo.HandlerFunc {
 	}
 }
 
-
-// Login handler 
+// Login handler
 func LoginHandler(c echo.Context) error {
 	var req struct {
 		Email    string `json:"email"`
@@ -133,7 +132,7 @@ func RefreshTokenHandler(c echo.Context) error {
 		// Create new access token
 		accessToken := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
 			"user_id": user.ID,
-			"exp":     time.Now().Add(time.Hour * 1).Unix(), // Token expires after 1 hour
+			"exp":     time.Now().Add(time.Hour * 1).Unix(), // Token expires after 1 hour and you have to refresh it
 		})
 
 		accessTokenString, err := accessToken.SignedString(jwtSecret)
