@@ -12,7 +12,7 @@ import (
 func SignupHandler(c echo.Context) error {
 	var req types.SignupRequest
 	if err := c.Bind(&req); err != nil {
-		return c.JSON(http.StatusBadRequest, map[string]string{"error": "Invalid request"})
+		return c.JSON(http.StatusBadRequest, map[string]string{"error": "Invalid Request"})
 	}
 
 	if req.Role != "buyer" && req.Role != "seller" {
