@@ -32,7 +32,7 @@ func SignupHandler(c echo.Context) error {
 	}
 
 	if err := database.DB.Create(&user).Error; err != nil {
-		return c.JSON(http.StatusInternalServerError, map[string]string{"error": "Could not create user"})
+		return c.JSON(http.StatusInternalServerError, map[string]string{"error": "Could not create User"})
 	}
 
 	return c.JSON(http.StatusCreated, user)
